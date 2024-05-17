@@ -10,30 +10,36 @@ def lector_de_test(path):
         archivo = open(element,"rb")
         reader = lector.PdfReader(archivo)
         pagina = reader.pages[0]
+        
         def visitante(text,nn,tm,nnn,nnnn):
+            
             
             y=tm[5]
             x=tm[4]
+            
             if text not in filtros:
-                if text == "Campaña:":
-                    print(x,y)
-                elif text == "N° CPE:":
-                    print("cpe",x,y)
-                elif x >= 471 and y < 793.23 and y > 780 and text not in filtros:
-                    print(int(text.split("-")[1]),y)
-                elif x > 463 and y < 525 and y > 510 and text not in filtros:
-                    print("campaña",text,y)
-                """ if y >225 and y < 265 and x> 210 and x < 298:
-                    if y not in result.keys():
-                        result[y]= [text]
-                    if y in result.keys():
-                        result[y].append(text) """
+                if text == "C - PROCEDENCIA":
+                   
+                    global y_procedencia  
+                    y_procedencia = y +1
+                elif text == "D - DESTINO DE LA MERCADERÍA":
+                    global y_destino
+                    y_destino = y +1
+                
+                if y >400 and y <500 and x <90 and x >83 :
+                    print(text ,x, y)
+                
+                
+                elif y > 510 and y < 520  and x > 270 and x < 300 :
+                    print(text, x,y)
+
         try:
             pagina.extract_text(visitor_text=visitante)
+            print(f'y procedencia {y_procedencia}  y destino {y_destino}')
         except:
             pass
     return result
-#print(lector_de_test(["C:\\Users\\franc\\Descargas 2324\\cp\\cpe-00000-00002688.pdf"]))
+#lector_de_test(["C:\\Users\\franc\\Descargas 2324\\cp\\cpe-00000-00002688.pdf"])
 exportar_excel(lector_multiple((['C:\\Users\\franc\\Descargas 2324\\cp\\cpe-00000-00002687.pdf',
                         'C:\\Users\\franc\\Descargas 2324\\cp\\cpe-00000-00002688.pdf'
                         ])))

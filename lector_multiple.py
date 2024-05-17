@@ -1,13 +1,17 @@
 import PyPDF2 as pdf
 import lector_simple as ls
 
+#AGREGAR EXTRCCION DE GRANO Y LOCALIDAD DE ORIGEN
+
 def lector_multiple(path_list):
     diccionario = {
         "Tara":[],
           "Neto":[],
           "Bruto":[],
           "Campaña":["Campaña"],
-          "CPE":["CPE"]
+          "CPE":["CPE"],
+          "GRANO":["GRANO"],
+          "LOCALIDAD":["LOCALIDAD"]
     }
     filtros = (""," ","\n") 
     for  i,path in enumerate(path_list):
@@ -36,7 +40,14 @@ def lector_multiple(path_list):
           
                 elif x > 463 and y < 525 and y > 510 and text not in filtros:
                     diccionario["Campaña"].append(text)
-                        
+                elif y >400 and y <500 and x <90 and x >83 and text not in filtros:
+                         diccionario["LOCALIDAD"].append(text)
+
+                
+                elif y > 510 and y < 520  and x > 270 and x < 300 and text not in filtros:
+                     if len(text)>0:
+                        diccionario["GRANO"].append(text)
+
             pagina.extract_text(visitor_text=determinante_de_limites)   
         
             def visitante(text,cm,tm,aca,otraaca):
@@ -80,4 +91,5 @@ def lector_multiple(path_list):
                     diccionario[el].append(None)
     #print (diccionario)       
     return diccionario
-#print(lector_multiple(('C:/Users/franc/Downloads/cpe-00000-00002365.pdf', 'C:/Users/franc/Downloads/cpe-00000-00002366.pdf', 'C:/Users/franc/Downloads/cpe-00000-00002364.pdf', 'C:/Users/franc/Downloads/cpe-00000-00002363.pdf', 'C:/Users/franc/Downloads/cpe-00000-00002360.pdf')))
+""" print(lector_multiple(('C:/Users/franc/Descargas 2324/cp/cpe-00000-00002729 SOJA DON FACUNDO GRANELES LOPEZ JOSE.pdf','C:/Users/franc/Descargas 2324/cp/cpe-00000-00002730 SOJA DON FACUNDO FRIAS FELIPA.pdf','C:/Users/franc/Descargas 2324/cp/cpe-00000-00002728 SOJA RANCHO TEXTURAR FRIAS.pdf','C:/Users/franc/Descargas 2324/cp/cpe-00000-00002726.pdf',
+'C:/Users/franc/Descargas 2324/cp/cpe-00000-00002725.pdf'))) """

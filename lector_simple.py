@@ -11,7 +11,9 @@ def lector_simple(path):
           "Neto":["Neto"],
           "Bruto":["Bruto"],
           "Campaña":["Campaña"],
-          "CPE":["CPE"]
+          "CPE":["CPE"],
+          "GRANO":["GRANO"],
+          "LOCALIDAD":["LOCALIDAD"]
      }
      result={
           
@@ -33,7 +35,16 @@ def lector_simple(path):
                     diccionario["CPE"].append(int(text.split("-")[1]))
           
           elif x > 463 and y < 525 and y > 510 and text not in filtros:
-               diccionario["Campaña"].append(text)         
+               diccionario["Campaña"].append(text) 
+               
+          elif y >400 and y <500 and x <90 and x >83 and text not in filtros :
+                         diccionario["LOCALIDAD"].append(text)
+                         
+                
+                
+          elif y > 510 and y < 520  and x > 270 and x < 300  and text not in filtros:
+                    diccionario["GRANO"].append(text)
+
      pagina.extract_text(visitor_text=determinante_de_limites) 
 
      def visitante(text,cm,tm,aca,otraaca):
@@ -88,4 +99,4 @@ def lector_simple(path):
      print ("diccionario--->",diccionario)
      return  [[result],diccionario]
 
-#print(lector_simple(r'C:\\Users\\franc\\Downloads\\agroseis planta cp\\cpe-00000-00000633.pdf')[0])
+#print(lector_simple('C:/Users/franc/Descargas 2324/cp/cpe-00000-00002729 SOJA DON FACUNDO GRANELES LOPEZ JOSE.pdf')[0])
